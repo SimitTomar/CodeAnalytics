@@ -102,7 +102,7 @@ class WordCounter {
         this.codeAnalytics.dateTime = new Date;
 
         //Append the Code Analytics in the Log File
-        fs.appendFileSync('/Users/simtomar/Desktop/TimeTracker/src/CodeAnalytics.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
+        fs.appendFileSync('/Users/simtomar/Desktop/CodeAnalytics/src/CodeAnalytics.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
 
 
         // // Get the current text editor
@@ -185,29 +185,24 @@ class WordCounterController {
 
 class CodeAnalytics{
 
-    public readCodeStats(){
+    public generateHtmlReport(){
 
-        let codeStats: any = this;
+        let codeStats: any = [];
 
         fs
-        .createReadStream('/Users/simtomar/Desktop/TimeTracker/src/CodeAnalytics.log')
+        .createReadStream('/Users/simtomar/Desktop/CodeAnalytics/src/CodeAnalytics.log')
         .pipe(es.split())
         .pipe(es.map(function(line, cb){
                     codeStats.push(line);
-                    //console.log('line', line);
                     cb(null, line)
                 })
         )
+
+
         return codeStats;
 
     }
 
-    public generateHtmlReport(){
-
-        let code = this.readCodeStats();
-        console.log(JSON.stringify(code));
-
-    }
 
 }
 

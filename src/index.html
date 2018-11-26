@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!-- Load c3.css -->
+<link href="/Users/simtomar/Desktop/CodeAnalytics/c3.css" rel="stylesheet">
+<link href="/Users/simtomar/Desktop/CodeAnalytics/src/codeAnalytics.css" rel="stylesheet">
+
+<!-- Load d3.js and c3.js -->
+<script src="/Users/simtomar/Desktop/CodeAnalytics/d3.v4.min.js" type="text/javascript"></script>
+<script src="/Users/simtomar/Desktop/CodeAnalytics/c3.min.js"></script>
+<script src="./liquidFillGauge.js" language="JavaScript"></script>
+<script src="/Users/simtomar/Desktop/CodeAnalytics/jquery.3.3.1.min.js"></script>
+
+<html>
+
+
+<body style="background-color:#2d353c2a;">
+
+    <h1>Welcome Simit!!</h1>
+
+    <div>
+        <h2>You have Coded 8 Hours and 27 Minutes over this duration:
+            <select id="durationSelector" onchange="getSelectedDuration()">
+                <option value="Today" selected>Today</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="Last 1 Week">Last 1 Week</option>
+                <option value="Last 2 Weeks">Last 2 Weeks</option>
+                <option value="Last 1 Month">Last 1 Month</option>
+                <option value="All Time">All Time</option>
+
+            </select>
+        </h2>
+    </div>
+
+
+
+    <div class="grid-container">
+        <div>
+            <p id="sectionTitles">Your Actual Coding Time</p>
+            <div id="barActualCodingTime"></div>
+        </div>
+        <div>
+            <p id="sectionTitles">Your File Breakup</p>
+            <div id="pieChartFileBreakup"></div>
+        </div>
+        <div id="achievedDailyGoalsProgress" style="background-color:#2d353cd2;">
+            <p id="sectionTitles">You have Acheived <em>5</em> out of <em>7</em> Total Completion Goals for the selected duration</p>
+            <svg id="fillgauge2"></svg>
+        </div>
+        <div>
+            <p id="sectionTitles">Your Today's Completion Goal Progress</p>
+            <div id="gaugeTodaysCompletionGoalProgress"></div>
+        </div>
+        <div>
+            <p id="sectionTitles">Your Maximum Coding Hours in a Day Till Date !!</p>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div>
+            <p id="sectionTitles">Simit, You are a Code Guru !!</p>
+            <img src="/Users/simtomar/Desktop/CodeAnalytics/src/Expert_Badge.png" alt="ExpertBadge" width="300" height="190">
+        </div>
+        
+    </div>
+    <br>
+    <br>
+    <div id="divFileTime">
+        <h2>File Time</h2>
+    </div>
+
+
+
+    <script language="JavaScript">
+
+        //Get the Duration against which the Data needs to be fetched
+        function getSelectedDuration() {
+            let selectedValue = document.getElementById("durationSelector").value;
+
+        }
+
+        //Bar which reflects Actual Coding Hours
+        let barActualCodingTime = c3.generate({
+
+            data: {
+                x: 'Days',
+                columns:
+                    [
+                        ['Days', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        ['value', 5, 10, 15, 20, 25, 30, 35]
+                    ],
+                type: 'bar',
+                colors: {
+                    value: function (d) {
+                        return '#' + (0xff0000 + (d.value - 25) * 256 * 3).toString(16);
+                    }
+                }
+            },
+            axis: {
+                x: {
+                    label: {
+                        text: 'Days',
+                        position: 'outer-center'
+                    },
+                    type: 'category'
+                },
+                y: {
+                    label: {
+                        text: 'Time in Hours',
+                        position: 'outer-middle'
+                    }
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                y: {
+                    lines: [
+                        { value: 20, text: 'Average Coding Time', position: 'start' },
+                    ]
+                }
+            },
+
+            bindto: '#barActualCodingTime'
+        });
+        function getWidth() {
+
+            let width = Math.max(
+                document.body.scrollWidth,
+                document.documentElement.scrollWidth,
+                document.body.offsetWidth,
+                document.documentElement.offsetWidth,
+                document.documentElement.clientWidth
+            );
+            width = width / 2;
+            console.log('width is', width);
+
+            return width;
+        }
+
+        //Pie Chart which reflects the File Breakup
+        let pieChartFileBreakup = c3.generate({
+            data: {
+                // iris data from R
+                columns: [
+                    ['data1', 30],
+                    ['data2', 120],
+                ],
+                type: 'pie',
+                onclick: function (d, i) { console.log("onclick", d, i); },
+                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+                onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+            },
+            pie: {
+                title: 'Simit'
+            },
+            bindto: '#pieChartFileBreakup'
+        });
+        setTimeout(function () {
+            pieChartFileBreakup.load({
+                columns: [
+                    ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+                    ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+                    ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+                ]
+            });
+        }, 1500);
+        setTimeout(function () {
+            pieChartFileBreakup.unload({
+                ids: 'data1'
+            });
+            pieChartFileBreakup.unload({
+                ids: 'data2'
+            });
+        }, 2500);
+
+        //Gauge which reflects the progress of Daily Completion Goal
+        let gaugeTodaysCompletionGoalProgress = c3.generate({
+            data: {
+                columns: [
+                    ['Progress', 40]
+                ],
+                type: 'gauge',
+                onclick: function (d, i) { console.log("onclick", d, i); },
+                onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+                onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+            },
+            gauge: {
+                min: 0,
+                max: 80
+            },
+            color: {
+                pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                threshold: {
+                    values: [20, 40, 60, 80]
+                }
+            },
+
+            bindto: '#gaugeTodaysCompletionGoalProgress'
+
+        });
+        setTimeout(function () {
+            gaugeTodaysCompletionGoalProgress.load({
+                columns: [['Progress', 70]]
+            });
+        }, 1000);
+
+
+        //Liquid Gauge which reflects Acheived/Total Completion Goals
+        d3.select("#fillgauge2").call(d3.liquidfillgauge, 28, {
+            circleColor: "#60b044",
+            textColor: "#65b847",
+            waveTextColor: "#65b847",
+            waveColor: "#a3d491",
+            circleThickness: 0.2,
+            textVertPosition: 0.2,
+            waveAnimateTime: 1000,
+            backgroundColor: "#2d353cd2",
+            valueCountUpAtStart: false,
+            waveRiseAtStart: false
+        });
+        setInterval(function () {
+            d3.select("#fillgauge2").on("valueChanged")(52);
+        }, 1000);
+        
+        //This section reflects th Badge of a Developer
+        
+
+        
+        //This section reflects the Maximum record of a Developer
+        /*=============================================================================*/  
+        /* Canvas Lightning v1
+        /*=============================================================================*/
+        var canvasLightning = function(c, cw, ch){
+        
+        /*=============================================================================*/  
+        /* Initialize
+        /*=============================================================================*/
+            this.init = function(){
+            this.loop();
+            };    
+            
+        /*=============================================================================*/  
+        /* Variables
+        /*=============================================================================*/
+            var _this = this;
+            this.c = c;
+            this.ctx = c.getContext('2d');
+            this.cw = cw;
+            this.ch = ch;
+            this.mx = 0;
+            this.my = 0;
+            
+            this.lightning = [];
+            this.lightTimeCurrent = 0;
+            this.lightTimeTotal = 50;
+            
+        /*=============================================================================*/  
+        /* Utility Functions
+        /*=============================================================================*/        
+        this.rand = function(rMi, rMa){return ~~((Math.random()*(rMa-rMi+1))+rMi);};
+        this.hitTest = function(x1, y1, w1, h1, x2, y2, w2, h2){return !(x1 + w1 < x2 || x2 + w2 < x1 || y1 + h1 < y2 || y2 + h2 < y1);};
+            
+        /*=============================================================================*/   
+        /* Create Lightning
+        /*=============================================================================*/
+            this.createL= function(x, y, canSpawn){                   
+            this.lightning.push({
+                x: x,
+                y: y,
+                xRange: this.rand(5, 30),
+                yRange: this.rand(5, 25),
+                path: [{
+                x: x,
+                y: y    
+                }],
+                pathLimit: this.rand(10, 35),
+                canSpawn: canSpawn,
+                hasFired: false
+            });
+            };
+            
+        /*=============================================================================*/   
+        /* Update Lightning
+        /*=============================================================================*/
+            this.updateL = function(){
+            var i = this.lightning.length;
+            while(i--){
+                var light = this.lightning[i];                        
+                
+                
+                light.path.push({
+                x: light.path[light.path.length-1].x + (this.rand(0, light.xRange)-(light.xRange/2)),
+                y: light.path[light.path.length-1].y + (this.rand(0, light.yRange))
+                });
+                
+                if(light.path.length > light.pathLimit){
+                this.lightning.splice(i, 1)
+                }
+                light.hasFired = true;
+            };
+            };
+            
+        /*=============================================================================*/   
+        /* Render Lightning
+        /*=============================================================================*/
+            this.renderL = function(){
+            var i = this.lightning.length;
+            while(i--){
+                var light = this.lightning[i];
+                
+                this.ctx.strokeStyle = 'hsla(0, 100%, 100%, '+this.rand(10, 100)/100+')';
+                this.ctx.lineWidth = 1;
+                if(this.rand(0, 30) == 0){
+                this.ctx.lineWidth = 2; 
+                }
+                if(this.rand(0, 60) == 0){
+                this.ctx.lineWidth = 3; 
+                }
+                if(this.rand(0, 90) == 0){
+                this.ctx.lineWidth = 4; 
+                }
+                if(this.rand(0, 120) == 0){
+                this.ctx.lineWidth = 5; 
+                }
+                if(this.rand(0, 150) == 0){
+                this.ctx.lineWidth = 6; 
+                } 
+                
+                this.ctx.beginPath();
+                
+                var pathCount = light.path.length;
+                this.ctx.moveTo(light.x, light.y);
+                for(var pc = 0; pc < pathCount; pc++){    
+                
+                this.ctx.lineTo(light.path[pc].x, light.path[pc].y);
+                
+                if(light.canSpawn){
+                    if(this.rand(0, 100) == 0){
+                    light.canSpawn = false;
+                    this.createL(light.path[pc].x, light.path[pc].y, false);
+                    } 
+                }
+                }
+                
+                if(!light.hasFired){
+                    // this.ctx.fillStyle = 'rgba(255, 255, 255, '+this.rand(4, 12)/100+')';
+                    this.ctx.fillStyle = `rgba(${this.rand(1, 255)}, ${this.rand(1, 255)}, ${this.rand(1, 255)}, ${this.rand(4, 12)/100})`;
+                    this.ctx.fillRect(140, 20, this.cw, this.ch); 
+                }
+                
+                if(this.rand(0, 30) == 0){
+                    // this.ctx.fillStyle = 'rgba(255, 255, 255, '+this.rand(1, 3)/100+')';
+                    this.ctx.fillStyle = `rgba(${this.rand(1, 255)}, ${this.rand(1, 255)}, ${this.rand(1, 255)}, ${this.rand(1, 3)/100})`;
+                    this.ctx.fillRect(140, 20, this.cw, this.ch);
+                }
+                let gradient = this.ctx.createLinearGradient(0,0,cw,0)
+                gradient.addColorStop("0","magenta");
+                gradient.addColorStop("0.5","blue");
+                gradient.addColorStop("1.0","red");
+
+                this.ctx.font = "140px Helvetica";
+                this.ctx.fillStyle = gradient;
+                this.ctx.fillText('12 Hours !!', this.cw/4+50, this.ch/2, this.cw); 
+                this.ctx.stroke();
+            };
+        };
+            
+        /*=============================================================================*/   
+        /* Lightning Timer
+        /*=============================================================================*/
+            this.lightningTimer = function(){
+            this.lightTimeCurrent++;
+            if(this.lightTimeCurrent >= this.lightTimeTotal){
+                var newX = this.rand(100, cw - 100);
+                var newY = this.rand(0, ch / 2); 
+                var createCount = this.rand(1, 3);
+                while(createCount--){                         
+                this.createL(newX, newY, true);
+                }
+                this.lightTimeCurrent = 0;
+                this.lightTimeTotal = this.rand(30, 100);
+            }
+            }
+            
+        /*=============================================================================*/   
+        /* Clear Canvas
+        /*=============================================================================*/
+            this.clearCanvas = function(){
+                this.ctx.globalCompositeOperation = 'destination-out';
+                this.ctx.fillStyle = 'rgba(0,0,0,'+this.rand(1, 30)/100+')';
+                this.ctx.fillRect(0,0,this.cw,this.ch); 
+                this.ctx.globalCompositeOperation = 'source-over';
+            };
+            
+        /*=============================================================================*/   
+        /* Resize on Canvas on Window Resize
+        /*=============================================================================*/
+        $(window).on('resize', function(){
+            _this.cw = _this.c.width = window.innerWidth;
+            _this.ch = _this.c.height = window.innerHeight;  
+        });
+            
+        /*=============================================================================*/   
+        /* Animation Loop
+        /*=============================================================================*/
+            this.loop = function(){
+                var loopIt = function(){
+                requestAnimationFrame(loopIt, _this.c);
+                _this.clearCanvas();
+                _this.updateL();
+                _this.lightningTimer();
+                _this.renderL();  
+            };
+            loopIt();                   
+            };
+            
+        };
+        
+        /*=============================================================================*/   
+        /* Check Canvas Support
+        /*=============================================================================*/
+        var isCanvasSupported = function(){
+            var elem = document.createElement('canvas');
+            return !!(elem.getContext && elem.getContext('2d'));
+        };
+        
+        /*=============================================================================*/   
+        /* Setup requestAnimationFrame
+        /*=============================================================================*/
+        var setupRAF = function(){
+            var lastTime = 0;
+            var vendors = ['ms', 'moz', 'webkit', 'o'];
+            for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x){
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+            };
+            
+            if(!window.requestAnimationFrame){
+            window.requestAnimationFrame = function(callback, element){
+                var currTime = new Date().getTime();
+                var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+                lastTime = currTime + timeToCall;
+                return id;
+            };
+            };
+            
+            if (!window.cancelAnimationFrame){
+            window.cancelAnimationFrame = function(id){
+                clearTimeout(id);
+            };
+            };
+        };          
+        
+        /*=============================================================================*/   
+        /* Define Canvas and Initialize
+        /*=============================================================================*/
+        $(window).on('load', function(){  
+            if(isCanvasSupported){
+            var c = document.getElementById('canvas');
+            var cw = c.width = window.innerWidth;
+            var ch = c.height = window.innerHeight; 
+            var cl = new canvasLightning(c, cw, ch);                
+            
+            setupRAF();
+            cl.init();
+            }
+        });
+        
+
+        //Section which reflects the Time each File has taken
+        let totalRows = 5;
+        let cellsInRow = 2;
+        function drawTable() {
+            // get the reference for the body
+            let divFileTime = document.getElementById('divFileTime');
+
+            // creates a <table> element
+            let tbl = document.createElement("table");
+
+            // creating rows
+            for (let r = 0; r < totalRows; r++) {
+                let row = document.createElement("tr");
+
+                // create cells in row
+                for (let c = 0; c < cellsInRow; c++) {
+
+                    if (r === 0) {
+                        let header = document.createElement("th");
+                        let headerText = document.createTextNode('Header Text')
+                        header.appendChild(headerText);
+                        row.appendChild(header);
+
+                    } else {
+                        let cell = document.createElement("td");
+                        let cellText = document.createTextNode('This is Sample Text');
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                    }
+
+                }
+
+
+                tbl.appendChild(row); // add the row to the end of the table body
+            }
+
+            divFileTime.appendChild(tbl);
+        }
+        window.onload = drawTable;
+
+    </script>
+
+</body>
+
+</html>
