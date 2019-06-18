@@ -3,10 +3,10 @@ canvas {
     width: 620px;
     height: 180px;
 }
-
+    
 .grid-container {
     display: grid;
-    grid-template-columns: 695px 695px;
+    grid-template-columns: auto auto;
     grid-gap: 10px;
     padding: 10px;
 }

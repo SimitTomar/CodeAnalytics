@@ -1,7 +1,7 @@
 {
-    "name": "TimeTracker",
-    "displayName": "TimeTracker",
-    "description": "Time Tracker",
+    "name": "CodeProductivity",
+    "displayName": "CodeProductivity",
+    "description": "Code Productivity",
     "version": "0.0.1",
     "publisher": "Simit Tomar",
     "engines": {
@@ -11,10 +11,82 @@
         "Other"
     ],
     "activationEvents": [
-        "onLanguage:markdown"
+
+        "onLanguage:abap",
+        "onLanguage:bat",
+        "onLanguage:bibtex",
+        "onLanguage:clojure",
+        "onLanguage:coffeescript",
+        "onLanguage:c",
+        "onLanguage:cpp",
+        "onLanguage:csharp",
+        "onLanguage:css",
+        "onLanguage:diff",
+        "onLanguage:dockerfile",
+        "onLanguage:feature",
+        "onLanguage:fsharp",
+        "onLanguage:git-commit",
+        "onLanguage:git-rebase",
+        "onLanguage:go",
+        "onLanguage:groovy",
+        "onLanguage:handlebars",
+        "onLanguage:html",
+        "onLanguage:ini",
+        "onLanguage:java",
+        "onLanguage:javascript",
+        "onLanguage:javascriptreact",
+        "onLanguage:json",
+        "onLanguage:jsonc",
+        "onLanguage:latex",
+        "onLanguage:less",
+        "onLanguage:lua",
+        "onLanguage:makefile",
+        "onLanguage:markdown",
+        "onLanguage:objective-c",
+        "onLanguage:objective-cpp",
+        "onLanguage:perl",
+        "onLanguage:perl6",
+        "onLanguage:php",
+        "onLanguage:powershell",
+        "onLanguage:jade",
+        "onLanguage:python",
+        "onLanguage:r",
+        "onLanguage:razor",
+        "onLanguage:ruby",
+        "onLanguage:rust",
+        "onLanguage:scss",
+        "onLanguage:sass",
+        "onLanguage:shaderlab",
+        "onLanguage:shellscript",
+        "onLanguage:sql",
+        "onLanguage:swift",
+        "onLanguage:typescript",
+        "onLanguage:typescriptreact",
+        "onLanguage:tex",
+        "onLanguage:text",
+        "onLanguage:vb",
+        "onLanguage:xml",
+        "onLanguage:xsl",
+        "onLanguage:yaml"
     ],
-    "main": "./out/extension",
+    "main": "./extension.js",
     "contributes": {
+        "languages": [
+            {
+                "id": "feature",
+                "aliases": [
+                    "feature",
+                    "gherkin",
+                    "Gherkin",
+                    "cucumber"
+                ],
+                "extensions": [
+                    ".feature",
+                    ".testcase"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
         "commands": [{
             "command": "extension.generateReport",
             "title": "Generate Report"
@@ -32,11 +104,7 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
         "typescript": "^2.6.1",
