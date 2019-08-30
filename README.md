@@ -35,11 +35,11 @@ Total Number of Coded Hours in a day since day 1 - Agnostic of selected duration
 
 A Certificate gets generated based on the Total Hours Coded by the Developer, The Certificate can be Viewed, Downloaded and Shared on various Social Platforms like LinkedIn, Facebook etc. The Certificate has 5 Developer Levels:
 
-**100** Hours - Novice
-**500** Hours - Advanced Beginner
-**1000** Hours - Competent Developer
-**5000** Hours - Proficient Developer
-**10000** Hours - Expert Developer
+- 100 Hours - **Novice**
+- 500 Hours - **Advanced Beginner**
+- 1000 Hours - **Competent Developer**
+- 5000 Hours - **Proficient Developer**
+- 10000 Hours - **Expert Developer**
 
 
 
