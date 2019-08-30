@@ -44,8 +44,6 @@ A Certificate gets generated based on the Total Hours Coded by the Developer, Th
 
 
 
-
-
 # License
 
 (The MIT License)
