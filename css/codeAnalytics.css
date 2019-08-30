@@ -1,0 +1,194 @@
+.logo {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+
+canvas {
+    display: block;
+    width: 620px;
+    height: 180px;
+}
+    
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.grid-container>div {
+    background-color: #2d353cd2;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+.c3-axis-y text {
+    fill: #f2f2f2;
+    font-size: 12px;
+}
+
+
+.c3-axis-x text {
+    fill: #f2f2f2;
+    font-size: 12px;
+}
+
+.c3-axis-x .tick {
+    fill: #f2f2f2;
+}
+
+.c3-axis-x path,
+.c3-axis-x line {
+    stroke: #f2f2f2;
+}
+
+.c3-axis-y .tick {
+    fill: #f2f2f2;
+}
+
+.c3-axis-y path,
+.c3-axis-y line {
+    stroke: #f2f2f2;
+}
+
+.c3-ygrid-line.greenyellow line {
+    stroke: greenyellow
+}
+
+.c3-legend-item {
+    fill: #f2f2f2;
+}
+
+.c3-legend-item title {
+    font: 14px sans-serif;
+    color: #f2f2f2;
+}
+
+table {
+    gap: 10px;
+}
+
+table,
+th,
+td {
+    border: 2px solid #2d353cd2;
+    border-collapse: collapse;
+    gap: 10px;
+}
+
+th,
+td {
+    padding: 5px;
+    text-align: left;
+}
+
+p#sectionTitles {
+    color: #f2f2f2;
+    font-size: 17px;
+}
+
+p#sectionTitles em {
+    font-weight: bold;
+    color: #60b044;
+}
+
+.liquidFillGaugeText {
+    font-family: Helvetica;
+    font-weight: bold;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  .modal-image {
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  /* Certificate Buttons */
+  .button {
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+
+

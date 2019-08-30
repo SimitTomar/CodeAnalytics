@@ -14,7 +14,7 @@ const stopwatch = new ts_stopwatch_1.Stopwatch();
 function activate(context) {
     // Use the console to output diagnostic information (console.log) and errors (console.error).
     // This line of code will only be executed once when your extension is activated.
-    console.log('Congratulations, your extension "TimeTracker" is now active!');
+    console.log('Congratulations, your extension is now active!');
     // create a new word counter
     let wordCounter = new WordCounter();
     let controller = new WordCounterController(wordCounter);
@@ -57,12 +57,12 @@ class WordCounter {
         let docLanguageId = doc.languageId;
         // Capture the Last and Current time at which an event is trigerred
         this.lastEventTime = this.currentEventTime;
-        console.log('lastEventTime', this.lastEventTime);
+        // console.log('lastEventTime', this.lastEventTime);
         // Start the Stopwatch
         stopwatch.start();
         this.currentEventTime = (stopwatch.getTime()) / 1000;
         this.currentEventTime = Math.round(this.currentEventTime);
-        console.log('currentEventTime', this.currentEventTime);
+        // console.log('currentEventTime', this.currentEventTime);
         // Calculate the Total time the Person has been coding
         if (this.currentEventTime - this.lastEventTime < this.timeout) {
             this.lastTotalUsedTime = this.lastTotalUsedTime + (this.currentEventTime - this.lastEventTime);
@@ -70,13 +70,14 @@ class WordCounter {
         else {
             this.lastTotalUsedTime = this.lastTotalUsedTime + this.settings.timeTracker.timeout;
         }
-        console.log('lastTotalUsedTime', this.lastTotalUsedTime);
+        // console.log('lastTotalUsedTime', this.lastTotalUsedTime);
+        console.log(`${JSON.stringify(this.codeAnalytics, null)}`);
         // Put the Total Used Time and File Name in the CodeStats Object
         this.codeAnalytics.totalUsedTime = this.lastTotalUsedTime;
         this.codeAnalytics.fileName = docFileName;
         this.codeAnalytics.dateTime = new Date;
         //Append the Code Analytics in the Log File
-        fs.appendFileSync('/Users/simtomar/Desktop/CodeAnalytics/CodeAnalytics.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
+        fs.appendFileSync('/Users/simtomar/Desktop/CodeProductivity/CodeProductivity.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
         // // Get the current text editor
         // let editor = window.activeTextEditor;
         // if (!editor) {
@@ -141,7 +142,7 @@ class CodeAnalytics {
         let lastFileTime = 0;
         let timeTakenByEachFile = 0;
         fs
-            .createReadStream('/Users/simtomar/Desktop/CodeAnalytics/out/CodeAnalytics.1.log')
+            .createReadStream('/Users/simtomar/Desktop/CodeProductivity/CodeProductivity.log')
             .on('error', function (error) {
             console.log('Error:', error.message);
         })
