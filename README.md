@@ -1,6 +1,6 @@
 # Code Analytics
 
-*CodeAnalytics* is a VSCode Plugin which gives insightful Analytics of your Coding Activities and helps you in augmenting your daily productivity.
+**CodeAnalytics** is a VSCode Plugin which gives insightful Analytics of your Coding Activities and helps you in augmenting your daily productivity.
 
 While you are Coding, the plugin is quitely listening to various Events (Clicks,  Type etc.) and capturing the Duration you are working on a file.
 
@@ -10,36 +10,36 @@ Based on the captured information, the Plugin generates intuitive reports which 
 
 Developers can get insights on the below:
 
-- *Coding Time*
+- **Coding Time**
 
 Time spent on Coding - Shown for the selected duration.
 
-- *File Extension Distribution*
+- **File Extension Distribution**
 
 Distribution of Time against various File Extensions - Shown for the selected duration.
 
-- *Daily Completion Goal Progress*
+- **Daily Completion Goal Progress**
 
 Progress against Daily completion goal set by the User - Agnostic of selected duration as it's measured for a Day.
 
-- *Achieved Goals*
+- **Achieved Goals**
 
 Achieved/Total Goals - Shown for the selected duration
 
 
-- *Maximum Coding Hours in a Day*
+- **Maximum Coding Hours in a Day**
 
 Total Number of Coded Hours in a day since day 1 - Agnostic of selected duration
 
-- *Certificate*
+- **Certificate**
 
 A Certificate gets generated based on the Total Hours Coded by the Developer, The Certificate can be Viewed, Downloaded and Shared on various Social Platforms like LinkedIn, Facebook etc. The Certificate has 5 Developer Levels:
 
-    *100* Hours - Novice
-    *500* Hours - Advanced Beginner
-    *1000* Hours - Competent Developer
-    *5000* Hours - Proficient Developer
-    *10000* Hours - Expert Developer
+**100** Hours - Novice
+**500** Hours - Advanced Beginner
+**1000** Hours - Competent Developer
+**5000** Hours - Proficient Developer
+**10000** Hours - Expert Developer
 
 
 
