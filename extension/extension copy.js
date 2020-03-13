@@ -14,21 +14,21 @@ const stopwatch = new ts_stopwatch_1.Stopwatch();
 function activate(context) {
     // Use the console to output diagnostic information (console.log) and errors (console.error).
     // This line of code will only be executed once when your extension is activated.
-    console.log('Congratulations, your extension is now active!');
-    // create a new word counter
-    let wordCounter = new WordCounter();
-    let controller = new WordCounterController(wordCounter);
+    console.log('Congratulations, CodeAnalytics is now active!');
+
+    let codeAnalytics = new CodeAnalytics();
+    let controller = new CodeAnalyticsController(codeAnalytics);
     let generateReportDisposable = vscode.commands.registerCommand('extension.generateReport', () => {
-        let codeAnalytics = new CodeAnalytics();
-        codeAnalytics.generateHtmlReport();
+        let dashboard = new Dashboard();
+        dashboard.generate();
     });
     // Add to a list of disposables which are disposed when this extension is deactivated.
     context.subscriptions.push(controller);
-    context.subscriptions.push(wordCounter);
+    context.subscriptions.push(codeAnalytics);
     context.subscriptions.push(generateReportDisposable);
 }
 exports.activate = activate;
-class WordCounter {
+class CodeAnalytics {
     constructor() {
         this._statusBarItem = vscode_1.window.createStatusBarItem(vscode_1.StatusBarAlignment.Left);
         this.settings = this.getConfig();
@@ -77,7 +77,7 @@ class WordCounter {
         this.codeAnalytics.fileName = docFileName;
         this.codeAnalytics.dateTime = new Date;
         //Append the Code Analytics in the Log File
-        fs.appendFileSync('/Users/simtomar/Desktop/CodeProductivity/CodeProductivity.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
+        fs.appendFileSync('/Users/simtomar/Desktop/My_Projects/CodeAnalytics/activityLog/CodeProductivity.log', `${JSON.stringify(this.codeAnalytics, null)}\n`);
         // // Get the current text editor
         // let editor = window.activeTextEditor;
         // if (!editor) {
@@ -116,15 +116,15 @@ class WordCounter {
 
 
 }
-class WordCounterController {
-    constructor(wordCounter) {
-        this._wordCounter = wordCounter;
+class CodeAnalyticsController {
+    constructor(codeAnalytics) {
+        this._codeAnalytics = codeAnalytics;
         // subscribe to selection change and editor activation events
         let subscriptions = [];
         vscode_1.window.onDidChangeTextEditorSelection(this._onEvent, this, subscriptions);
         vscode_1.window.onDidChangeActiveTextEditor(this._onEvent, this, subscriptions);
         // update the counter for the current file
-        this._wordCounter.updateWordCount();
+        this._codeAnalytics.updateWordCount();
         // create a combined disposable from both event subscriptions
         this._disposable = vscode_1.Disposable.from(...subscriptions);
     }
@@ -132,17 +132,18 @@ class WordCounterController {
         this._disposable.dispose();
     }
     _onEvent() {
-        this._wordCounter.updateWordCount();
+        this._codeAnalytics.updateWordCount();
     }
 }
-class CodeAnalytics {
-    generateHtmlReport() {
+
+class Dashboard {
+    generate() {
         let fileData = {};
         let currentFileTime = 0;
         let lastFileTime = 0;
         let timeTakenByEachFile = 0;
         fs
-            .createReadStream('/Users/simtomar/Desktop/CodeProductivity/CodeProductivity.log')
+            .createReadStream('/Users/simtomar/Desktop/My_Projects/CodeAnalytics/activityLog/CodeProductivity.log')
             .on('error', function (error) {
             console.log('Error:', error.message);
         })
