@@ -6,6 +6,10 @@ While you are Coding, the plugin is quitely listening to various Events (Clicks,
 
 Based on the captured information, the Plugin generates intuitive reports which can be prudent in enhancing the productivity.
 
+# Dashboard
+
+![Dashboard](Dashboard.png)
+
 ## Features:
 
 Developers can get insights on the below:
@@ -40,10 +44,6 @@ A Certificate gets generated based on the Total Hours Coded by the Developer, Th
 - 1000 Hours - **Competent Developer**
 - 5000 Hours - **Proficient Developer**
 - 10000 Hours - **Expert Developer**
-
-# Dashboard View
-
-![Dashboard](Dashboard.png)
 
 
 # License
