@@ -41,7 +41,9 @@ A Certificate gets generated based on the Total Hours Coded by the Developer, Th
 - 5000 Hours - **Proficient Developer**
 - 10000 Hours - **Expert Developer**
 
+# Dashboard View
 
+![Dashboard](Dashboard.png)
 
 
 # License
